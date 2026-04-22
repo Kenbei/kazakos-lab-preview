@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>BiopathologyLabs — Preview Mockup (v1)</title>
+<meta name="description" content="Εξειδικευμένη βιοπαθολογική διάγνωση στην Κοζάνη από το 1977. ISO 9001:2015, SWISS Approval, EQAS. Αιμοληψία κατ' οίκον, πλήρες φάσμα εξετάσεων." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#FAFBFC;
+    --surface:#FFFFFF;
+    --surface-2:#F4F7F8;
+    --ink:#0B1F2A;
+    --ink-2:#475569;
+    --ink-3:#94A3B8;
+    --line:#E5EBEE;
+    --primary:#0E4F5E;
+    --primary-ink:#083440;
+    --primary-soft:#E8F2F4;
+    --accent:#14B8A6;
+    --accent-ink:#0F7F73;
+    --accent-soft:#E6F8F5;
+    --warn:#F59E0B;
+    --radius:14px;
+    --radius-sm:8px;
+    --radius-lg:22px;
+    --shadow-sm:0 1px 2px rgba(11,31,42,.04), 0 1px 4px rgba(11,31,42,.04);
+    --shadow-md:0 8px 24px -8px rgba(11,31,42,.12), 0 2px 6px rgba(11,31,42,.05);
+    --shadow-lg:0 24px 60px -20px rgba(11,31,42,.18);
+    --container:1180px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  h1,h2,h3,h4{font-family:'Fraunces', 'Inter', serif; font-weight:600; letter-spacing:-.015em; color:var(--ink); margin:0}
+  h1{font-size:clamp(2.2rem, 4.5vw, 3.6rem); line-height:1.08; letter-spacing:-.03em}
+  h2{font-size:clamp(1.8rem, 3.2vw, 2.4rem); line-height:1.15}
+  h3{font-size:1.25rem; line-height:1.3}
+  p{margin:0}
+  a{color:inherit; text-decoration:none}
+  img{max-width:100%; display:block}
+  .container{max-width:var(--container); margin:0 auto; padding:0 24px}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Inter', sans-serif; font-size:.78rem; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase;
+    color:var(--accent-ink);
+    background:var(--accent-soft);
+    padding:6px 12px; border-radius:999px;
+  }
+  .eyebrow::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--accent)}
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    font-family:'Inter', sans-serif; font-weight:600; font-size:.95rem;
+    padding:13px 22px; border-radius:999px; cursor:pointer;
+    transition:transform .15s ease, box-shadow .2s ease, background .2s ease;
+    border:1px solid transparent; white-space:nowrap;
+  }
+  .btn-primary{background:var(--primary); color:#fff; box-shadow:var(--shadow-md)}
+  .btn-primary:hover{background:var(--primary-ink); transform:translateY(-1px); box-shadow:var(--shadow-lg)}
+  .btn-accent{background:var(--accent); color:#fff; box-shadow:var(--shadow-md)}
+  .btn-accent:hover{background:var(--accent-ink); transform:translateY(-1px)}
+  .btn-ghost{background:transparent; color:var(--ink); border-color:var(--line)}
+  .btn-ghost:hover{background:var(--surface-2); border-color:var(--primary)}
+  .btn svg{width:18px; height:18px}
+
+  /* ── Top bar ─────────────────────────────────────────── */
+  .topbar{
+    background:var(--primary-ink); color:#D8EAED;
+    font-size:.82rem; padding:8px 0;
+  }
+  .topbar .row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px}
+  .topbar a{display:inline-flex; align-items:center; gap:6px; color:#D8EAED}
+  .topbar a:hover{color:#fff}
+  .topbar .dot{width:6px; height:6px; border-radius:50%; background:var(--accent); animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+  /* ── Navigation ──────────────────────────────────────── */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,255,255,.85); backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav .row{display:flex; align-items:center; justify-content:space-between; height:78px}
+  .brand{display:flex; align-items:center; gap:12px}
+  .brand-mark{
+    width:42px; height:42px; border-radius:12px;
+    background:linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    display:grid; place-items:center; color:#fff;
+    box-shadow:var(--shadow-sm);
+  }
+  .brand-text{display:flex; flex-direction:column; line-height:1}
+  .brand-text .name{font-family:'Fraunces', serif; font-weight:600; font-size:1.15rem; letter-spacing:-.01em}
+  .brand-text .sub{font-size:.72rem; color:var(--ink-2); margin-top:3px; letter-spacing:.04em}
+  .nav-links{display:flex; gap:6px; align-items:center}
+  .nav-links a{padding:8px 14px; border-radius:8px; font-size:.92rem; font-weight:500; color:var(--ink-2); transition:background .15s; white-space:nowrap}
+  .nav-links a:hover{background:var(--surface-2); color:var(--ink)}
+  .nav-cta{display:flex; gap:10px; align-items:center}
+  .mobile-toggle{display:none; background:none; border:0; padding:8px; cursor:pointer}
+  @media (max-width: 900px){
+    .nav-links{display:none}
+    .nav-cta .btn-ghost{display:none}
+  }
+
+  /* ── Hero ────────────────────────────────────────────── */
+  .hero{
+    position:relative; overflow:hidden;
+    padding:80px 0 100px;
+    background:
+      radial-gradient(1200px 500px at 80% -10%, var(--primary-soft) 0%, transparent 60%),
+      radial-gradient(800px 400px at 10% 110%, var(--accent-soft) 0%, transparent 60%),
+      var(--bg);
+  }
+  .hero .grid{
+    display:grid; grid-template-columns:1.1fr .9fr; gap:60px; align-items:center;
+  }
+  @media (max-width: 960px){ .hero .grid{grid-template-columns:1fr; gap:40px} }
+  .hero h1 span.accent{
+    background:linear-gradient(95deg, var(--primary) 0%, var(--accent) 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.lead{
+    font-size:1.15rem; color:var(--ink-2); max-width:540px; margin-top:22px;
+  }
+  .hero .cta-row{display:flex; gap:12px; margin-top:34px; flex-wrap:wrap}
+  .hero .trust{
+    display:flex; gap:28px; margin-top:44px; flex-wrap:wrap;
+    padding-top:28px; border-top:1px solid var(--line);
+  }
+  .hero .trust-item{display:flex; flex-direction:column; gap:2px}
+  .hero .trust-item .num{font-family:'Fraunces', serif; font-size:1.85rem; font-weight:600; color:var(--primary)}
+  .hero .trust-item .lbl{font-size:.82rem; color:var(--ink-2)}
+
+  /* Hero visual */
+  .hero-visual{
+    position:relative; aspect-ratio:5/6; border-radius:var(--radius-lg);
+    background:linear-gradient(135deg, #E8F2F4 0%, #F8FBFC 100%);
+    overflow:hidden;
+    box-shadow:var(--shadow-lg);
+  }
+  .hero-visual .photo-placeholder{
+    position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(20,184,166,.15), transparent 50%),
+      radial-gradient(circle at 70% 80%, rgba(14,79,94,.2), transparent 50%);
+    display:grid; place-items:center;
+    color:var(--ink-3); font-size:.85rem;
+  }
+  .hero-visual::before{
+    content:""; position:absolute; top:0; left:0; right:0; height:50%;
+    background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 70%, rgba(255,255,255,.3) 100%);
+  }
+  .hero-card{
+    position:absolute; bottom:24px; left:24px; right:24px;
+    background:rgba(255,255,255,.95); backdrop-filter:blur(8px);
+    border-radius:var(--radius); padding:18px;
+    display:flex; gap:14px; align-items:center;
+    box-shadow:var(--shadow-md);
+  }
+  .hero-card .icon{
+    width:44px; height:44px; border-radius:12px;
+    background:var(--accent-soft); color:var(--accent-ink);
+    display:grid; place-items:center; flex-shrink:0;
+  }
+  .hero-card .text{line-height:1.3}
+  .hero-card .t1{font-weight:600; font-size:.92rem}
+  .hero-card .t2{font-size:.78rem; color:var(--ink-2); margin-top:2px}
+
+  /* ── Trust strip ─────────────────────────────────────── */
+  .trust-strip{
+    background:var(--surface); border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding:28px 0;
+  }
+  .trust-strip .row{
+    display:flex; gap:48px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+  }
+  .trust-strip .label{font-size:.8rem; color:var(--ink-3); letter-spacing:.12em; text-transform:uppercase; font-weight:600}
+  .badge-row{display:flex; gap:28px; flex-wrap:wrap; align-items:center}
+  .cert-badge{
+    display:flex; align-items:center; gap:10px;
+    font-size:.88rem; color:var(--ink-2); font-weight:500;
+  }
+  .cert-badge .cert-icon{
+    width:32px; height:32px; border-radius:8px;
+    background:var(--primary-soft); color:var(--primary);
+    display:grid; place-items:center; flex-shrink:0;
+  }
+
+  /* ── Sections ────────────────────────────────────────── */
+  section.block{padding:90px 0}
+  .section-head{max-width:680px; margin-bottom:56px}
+  .section-head .eyebrow{margin-bottom:14px}
+  .section-head p.sub{color:var(--ink-2); margin-top:16px; font-size:1.05rem}
+  .section-head.center{margin-left:auto; margin-right:auto; text-align:center}
+
+  /* ── Services ────────────────────────────────────────── */
+  .services{background:var(--surface)}
+  .service-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;
+  }
+  @media (max-width:900px){ .service-grid{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:600px){ .service-grid{grid-template-columns:1fr} }
+  .service{
+    padding:28px; border-radius:var(--radius);
+    background:var(--surface); border:1px solid var(--line);
+    transition:all .25s ease; cursor:pointer;
+    display:flex; flex-direction:column; gap:14px;
+    position:relative; overflow:hidden;
+  }
+  .service::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, transparent 0%, rgba(14,79,94,.02) 100%);
+    opacity:0; transition:opacity .25s;
+  }
+  .service:hover{transform:translateY(-3px); border-color:var(--primary); box-shadow:var(--shadow-md)}
+  .service:hover::after{opacity:1}
+  .service .icon{
+    width:48px; height:48px; border-radius:12px;
+    background:var(--primary-soft); color:var(--primary);
+    display:grid; place-items:center; flex-shrink:0;
+  }
+  .service h3{font-family:'Inter', sans-serif; font-weight:600; font-size:1.05rem; letter-spacing:0}
+  .service p{font-size:.9rem; color:var(--ink-2)}
+  .service .arrow{align-self:flex-start; margin-top:auto; font-size:.85rem; color:var(--primary); font-weight:500; display:flex; align-items:center; gap:4px}
+
+  /* ── About / History ─────────────────────────────────── */
+  .about{background:var(--bg)}
+  .about .grid{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center}
+  @media (max-width:900px){ .about .grid{grid-template-columns:1fr} }
+  .timeline{display:flex; flex-direction:column; gap:22px; margin-top:36px}
+  .tl-item{display:flex; gap:18px; align-items:flex-start}
+  .tl-year{
+    font-family:'Fraunces', serif; font-weight:600; font-size:1.15rem;
+    color:var(--primary); min-width:64px;
+    padding-top:3px;
+  }
+  .tl-body{border-left:2px solid var(--line); padding:0 0 8px 20px; margin-left:-10px; position:relative; flex:1}
+  .tl-body::before{
+    content:""; position:absolute; left:-7px; top:10px;
+    width:12px; height:12px; border-radius:50%;
+    background:var(--accent); border:3px solid var(--bg); box-shadow:0 0 0 1px var(--accent);
+  }
+  .tl-body .t{font-weight:600; color:var(--ink); margin-bottom:4px}
+  .tl-body .d{font-size:.92rem; color:var(--ink-2)}
+  .about-visual{
+    aspect-ratio:4/5; border-radius:var(--radius-lg); overflow:hidden;
+    background:linear-gradient(135deg, var(--primary-soft) 0%, var(--accent-soft) 100%);
+    position:relative; box-shadow:var(--shadow-md);
+  }
+  .about-visual .stat{
+    position:absolute; bottom:24px; left:24px; right:24px;
+    background:#fff; border-radius:var(--radius); padding:20px 22px;
+    display:grid; grid-template-columns:1fr 1fr; gap:22px;
+    box-shadow:var(--shadow-md);
+  }
+  .about-visual .stat > div .n{font-family:'Fraunces', serif; font-size:1.8rem; font-weight:600; color:var(--primary); line-height:1}
+  .about-visual .stat > div .l{font-size:.78rem; color:var(--ink-2); margin-top:4px}
+
+  /* ── Team ────────────────────────────────────────────── */
+  .team{background:var(--surface)}
+  .team-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:20px}
+  @media (max-width:900px){ .team-grid{grid-template-columns:repeat(2, 1fr)} }
+  @media (max-width:500px){ .team-grid{grid-template-columns:1fr} }
+  .member{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    overflow:hidden; transition:all .25s;
+  }
+  .member:hover{border-color:var(--primary); transform:translateY(-3px); box-shadow:var(--shadow-md)}
+  .member .photo{
+    aspect-ratio:1;
+    background:linear-gradient(135deg, var(--primary-soft), var(--accent-soft));
+    display:grid; place-items:center; color:var(--ink-3); font-size:.82rem;
+  }
+  .member .info{padding:18px}
+  .member .info h3{font-family:'Inter', sans-serif; font-size:1rem; font-weight:600; letter-spacing:0}
+  .member .info .role{font-size:.82rem; color:var(--primary); font-weight:500; margin-top:4px}
+  .member .info .bio{font-size:.82rem; color:var(--ink-2); margin-top:10px; line-height:1.5}
+
+  /* ── Highlight (κατ' οίκον) ──────────────────────────── */
+  .highlight{background:var(--bg)}
+  .highlight-card{
+    background:linear-gradient(135deg, var(--primary) 0%, var(--primary-ink) 100%);
+    color:#fff; border-radius:var(--radius-lg); padding:60px 56px;
+    display:grid; grid-template-columns:1.2fr .8fr; gap:40px; align-items:center;
+    position:relative; overflow:hidden;
+    box-shadow:var(--shadow-lg);
+  }
+  .highlight-card::before{
+    content:""; position:absolute; top:-50%; right:-10%;
+    width:500px; height:500px; border-radius:50%;
+    background:radial-gradient(circle, rgba(20,184,166,.3), transparent 60%);
+    pointer-events:none;
+  }
+  @media (max-width:800px){
+    .highlight-card{grid-template-columns:1fr; padding:40px 28px}
+  }
+  .highlight-card h2{color:#fff}
+  .highlight-card p{color:rgba(255,255,255,.85); margin-top:14px; font-size:1.02rem; max-width:440px}
+  .highlight-card .pill-list{display:flex; flex-direction:column; gap:12px; position:relative; z-index:1}
+  .highlight-card .pill{
+    background:rgba(255,255,255,.1); backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,.18);
+    padding:14px 18px; border-radius:999px;
+    display:flex; align-items:center; gap:12px;
+    font-size:.95rem;
+  }
+  .highlight-card .pill .ico{
+    width:28px; height:28px; border-radius:50%;
+    background:var(--accent); color:#fff;
+    display:grid; place-items:center; flex-shrink:0;
+  }
+  .highlight-card .cta-row{margin-top:28px}
+
+  /* ── Equipment & partners ────────────────────────────── */
+  .partners{background:var(--surface-2)}
+  .partners-grid{
+    display:grid; grid-template-columns:repeat(6, 1fr); gap:20px; align-items:center;
+  }
+  @media (max-width:900px){ .partners-grid{grid-template-columns:repeat(3, 1fr)} }
+  @media (max-width:500px){ .partners-grid{grid-template-columns:repeat(2, 1fr)} }
+  .brand-chip{
+    height:80px;
+    display:grid; place-items:center;
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    color:var(--ink-2); font-weight:600; font-size:.95rem;
+    transition:all .2s;
+  }
+  .brand-chip:hover{border-color:var(--primary); color:var(--primary)}
+
+  /* ── Insurance ───────────────────────────────────────── */
+  .insurance{background:var(--bg)}
+  .insurance-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:14px;
+  }
+  @media (max-width:700px){ .insurance-grid{grid-template-columns:repeat(2,1fr)} }
+  .ins-card{
+    padding:24px; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    display:flex; align-items:center; gap:14px;
+  }
+  .ins-icon{
+    width:40px; height:40px; border-radius:10px;
+    background:var(--primary-soft); color:var(--primary);
+    display:grid; place-items:center; flex-shrink:0;
+  }
+  .ins-name{font-weight:600; font-size:.95rem}
+  .ins-full{font-size:.76rem; color:var(--ink-2); margin-top:2px}
+
+  /* ── Visit / Contact ─────────────────────────────────── */
+  .visit{background:var(--surface)}
+  .visit .grid{display:grid; grid-template-columns:1fr 1fr; gap:48px}
+  @media (max-width:900px){ .visit .grid{grid-template-columns:1fr} }
+  .info-block{display:flex; gap:16px; padding:22px 0; border-bottom:1px solid var(--line)}
+  .info-block:last-child{border-bottom:0}
+  .info-block .ib-icon{
+    width:44px; height:44px; border-radius:12px;
+    background:var(--primary-soft); color:var(--primary);
+    display:grid; place-items:center; flex-shrink:0;
+  }
+  .info-block .ib-body .t{font-weight:600; margin-bottom:6px}
+  .info-block .ib-body .d{color:var(--ink-2); font-size:.92rem; line-height:1.6}
+  .info-block .ib-body a{color:var(--primary); font-weight:500; border-bottom:1px solid transparent; transition:border-color .2s}
+  .info-block .ib-body a:hover{border-color:var(--primary)}
+  .map-placeholder{
+    width:100%; aspect-ratio:4/3; border-radius:var(--radius-lg);
+    background:
+      linear-gradient(135deg, #E8F2F4 0%, #F8FBFC 100%),
+      repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(14,79,94,.04) 20px, rgba(14,79,94,.04) 40px);
+    display:grid; place-items:center; color:var(--ink-3);
+    border:1px solid var(--line); font-size:.9rem;
+    position:relative; overflow:hidden;
+  }
+  .map-pin{
+    position:absolute; top:50%; left:50%; transform:translate(-50%, -100%);
+    width:42px; height:42px; display:grid; place-items:center;
+  }
+  .map-pin::before{
+    content:""; position:absolute; inset:0;
+    background:var(--accent); border-radius:50% 50% 50% 0;
+    transform:rotate(-45deg); box-shadow:var(--shadow-md);
+  }
+  .map-pin svg{position:relative; color:#fff; width:20px; height:20px; transform:translateY(-2px)}
+
+  /* ── CTA band ────────────────────────────────────────── */
+  .cta-band{
+    background:linear-gradient(135deg, var(--primary-ink) 0%, var(--primary) 100%);
+    color:#fff; padding:70px 0;
+  }
+  .cta-band .row{display:flex; justify-content:space-between; align-items:center; gap:30px; flex-wrap:wrap}
+  .cta-band h2{color:#fff; max-width:600px}
+  .cta-band p{color:rgba(255,255,255,.8); margin-top:10px; max-width:600px}
+  .cta-band .btn-accent{background:var(--accent)}
+
+  /* ── Footer ──────────────────────────────────────────── */
+  footer{background:#061C24; color:#94A8AE; padding:60px 0 30px; font-size:.9rem}
+  footer a{color:#C9D9DC; transition:color .2s}
+  footer a:hover{color:#fff}
+  .foot-grid{
+    display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px;
+    padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  @media (max-width:800px){ .foot-grid{grid-template-columns:1fr 1fr; gap:30px} }
+  @media (max-width:500px){ .foot-grid{grid-template-columns:1fr} }
+  .foot-col h4{color:#fff; font-family:'Inter', sans-serif; font-size:.82rem; letter-spacing:.1em; text-transform:uppercase; font-weight:600; margin-bottom:16px}
+  .foot-col ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px}
+  .foot-brand{display:flex; gap:14px; align-items:flex-start; margin-bottom:14px}
+  .foot-brand .brand-mark{width:38px; height:38px}
+  .foot-brand .name{color:#fff; font-family:'Fraunces', serif; font-size:1.05rem}
+  .foot-brand .sub{font-size:.72rem; color:#6E8088; letter-spacing:.04em; margin-top:2px}
+  .foot-desc{max-width:320px; color:#7B8F96; font-size:.88rem; margin-top:6px}
+  .foot-bottom{padding-top:24px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; font-size:.82rem; color:#6E8088}
+</style>
+</head>
+<body>
+
+<!-- ─────────────────────── TOP BAR ─────────────────────── -->
+<div class="topbar">
+  <div class="container row">
+    <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap">
+      <span style="display:inline-flex; align-items:center; gap:8px"><span class="dot"></span>Ανοιχτά τώρα · 07:15 – 20:00</span>
+      <span style="color:rgba(255,255,255,.3)">·</span>
+      <a href="tel:2461026775">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2Z"/></svg>
+        24610 26775
+      </a>
+      <a href="mailto:info@biopathologylabs.gr">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        info@biopathologylabs.gr
+      </a>
+    </div>
+    <div style="display:flex; gap:12px; align-items:center">
+      <a href="#">EL</a>
+      <span style="color:rgba(255,255,255,.3)">/</span>
+      <a href="#" style="opacity:.6">EN</a>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────────────── NAV ─────────────────────── -->
+<nav class="nav">
+  <div class="container row">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 2v7.31"/><path d="M14 9.3V2"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="name">BiopathologyLabs</span>
+        <span class="sub">Φαρμάκης Μ. · Καζάκος Ε.</span>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#services">Εξετάσεις</a>
+      <a href="#about">Εργαστήριο</a>
+      <a href="#team">Ομάδα</a>
+      <a href="#home-service">Αιμοληψία</a>
+      <a href="#insurance">Ασφαλιστικά</a>
+      <a href="#contact">Επικοινωνία</a>
+    </div>
+    <div class="nav-cta">
+      <a href="results.html" class="btn btn-ghost">Αποτελέσματα</a>
+      <a href="#contact" class="btn btn-primary">
+        Κλείστε ραντεβού
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ─────────────────────── HERO ─────────────────────── -->
+<section class="hero">
+  <div class="container grid">
+    <div>
+      <span class="eyebrow">Βιοπαθολογικό Εργαστήριο · Κοζάνη από το 1977</span>
+      <h1 style="margin-top:22px">
+        Εξειδικευμένη διάγνωση,<br/>
+        <span class="accent">ανθρώπινη φροντίδα.</span>
+      </h1>
+      <p class="lead">
+        Πλήρες φάσμα εργαστηριακών εξετάσεων σε σύγχρονες, πιστοποιημένες εγκαταστάσεις στο κέντρο της Κοζάνης.
+        Από αιματολογικό έλεγχο μέχρι μοριακή διάγνωση — με ακρίβεια που μπορείτε να εμπιστευτείτε.
+      </p>
+      <div class="cta-row">
+        <a href="#contact" class="btn btn-primary">
+          Κλείστε ραντεβού
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></svg>
+        </a>
+        <a href="tel:2461026775" class="btn btn-ghost">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2Z"/></svg>
+          24610 26775
+        </a>
+      </div>
+      <div class="trust">
+        <div class="trust-item"><span class="num">47+</span><span class="lbl">Χρόνια εμπειρίας</span></div>
+        <div class="trust-item"><span class="num">9</span><span class="lbl">Εργαστηριακά τμήματα</span></div>
+        <div class="trust-item"><span class="num">ISO</span><span class="lbl">9001:2015 πιστοποιημένο</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="photo-placeholder">[Φωτογραφία εργαστηρίου / ομάδας — custom shot]</div>
+      <div class="hero-card">
+        <div class="icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="text">
+          <div class="t1">SWISS Approval · EQAS</div>
+          <div class="t2">Διεθνή πρότυπα ποιότητας</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── TRUST STRIP ─────────────────────── -->
+<div class="trust-strip">
+  <div class="container row">
+    <span class="label">Πιστοποιήσεις</span>
+    <div class="badge-row">
+      <div class="cert-badge">
+        <span class="cert-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2 4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6l-8-4Z"/></svg></span>
+        ISO 9001:2015
+      </div>
+      <div class="cert-badge">
+        <span class="cert-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="8" r="6"/><path d="m9 12-2 10 5-3 5 3-2-10"/></svg></span>
+        M&W SWISS Approval
+      </div>
+      <div class="cert-badge">
+        <span class="cert-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18"/><path d="M12 3a15 15 0 0 0 0 18"/><circle cx="12" cy="12" r="10"/></svg></span>
+        EQAS International
+      </div>
+      <div class="cert-badge">
+        <span class="cert-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.9-2.5-3-5.5C5.9 9.5 5 10.6 5 12a2.5 2.5 0 0 0 2.5 2.5Z"/><path d="M16 6v10"/><path d="M21 11h-10"/></svg></span>
+        COVID-free protocol
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────────────── SERVICES ─────────────────────── -->
+<section class="block services" id="services">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Τι καλύπτουμε</span>
+      <h2 style="margin-top:14px">Εννέα εργαστηριακά τμήματα,<br/>ένας αξιόπιστος προορισμός.</h2>
+      <p class="sub">Όλο το φάσμα των εργαστηριακών εξετάσεων, σε σύγχρονους αναλυτές από Abbott, Stago, Thermo-Scientific και Qiagen.</p>
+    </div>
+
+    <div class="service-grid">
+      <div class="service">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v6"/><path d="M12 17v6"/><path d="m4.22 4.22 4.24 4.24"/><path d="m15.54 15.54 4.24 4.24"/><path d="M1 12h6"/><path d="M17 12h6"/><path d="m4.22 19.78 4.24-4.24"/><path d="m15.54 8.46 4.24-4.24"/></svg></div>
+        <h3>Μικροβιολογικό</h3>
+        <p>Καλλιέργειες, αντιβιογράμματα, ταυτοποίηση παθογόνων, έλεγχος λοιμώξεων.</p>
+        <span class="arrow">Δείτε εξετάσεις →</span>
+      </div>
+      <div class="service">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 3v18"/><path d="M15 3v18"/><path d="M3 9h18"/><path d="M3 15h18"/></svg></div>
+        <h3>Βιοχημικό</h3>
+        <p>Γλυκόζη, λιπιδαιμικός έλεγχος, ηπατικά, νεφρικά, ηλεκτρολύτες, ιχνοστοιχεία.</p>
+        <span class="arrow">Δείτε εξετάσεις →</span>
+      </div>
+      <div class="service">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21l8.84-8.61a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <h3>Ανοσολογικό</h3>
+        <p>Αυτοάνοσα, ρευματολογικά, αντισώματα, συμπλήρωμα, IgG/IgM/IgA.</p>
+        <span class="arrow">Δείτε εξετάσεις →</span>
+      </div>
+      <div class="service">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <h3>Αλλεργιολογικό</h3>
+        <p>Εξατομικευμένος έλεγχος αλλεργιών σε τροφές, αέρια, φάρμακα, έντομα.</p>
+        <span class="arrow">Δείτε εξετάσεις →</span>
+      </div>
+      <div class="service">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <h3>Ορμονολογικό</h3>
+        <p>Θυρεοειδής, φύλου, αναπαραγωγικές, στεροειδείς — πλήρης ορμονικός έλεγχος.</p>
+        <span class="arrow">Δείτε εξετάσεις →</span>
+      </div>
+      <div class="service">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3>Μυκητολογικό & Ιολογικό</h3>
+        <p>Ανίχνευση μυκητιασικών και ιογενών λοιμώξεων με σύγχρονες τεχνικές.</p>
+        <span class="arrow">Δείτε εξετάσεις →</span>
+      </div>
+      <div class="service">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2a4 4 0 0 0-4 4v12a4 4 0 0 0 8 0V6a4 4 0 0 0-4-4Z"/><path d="M8 10h8"/><path d="M8 14h8"/></svg></div>
+        <h3>Μοριακή Διάγνωση</h3>
+        <p>PCR, RT-PCR, ανίχνευση DNA/RNA, φαρμακογενετική, γενετικά tests.</p>
+        <span class="arrow">Δείτε εξετάσεις →</span>
+      </div>
+      <div class="service">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10" cy="14" r="7"/><path d="m15 9 5-5"/><path d="M20 4v4h-4"/></svg></div>
+        <h3>Ανδρικής Υπογονιμότητας</h3>
+        <p>Σπερμοδιάγραμμα, ορμονικός έλεγχος, μοριακές εξετάσεις γονιμότητας.</p>
+        <span class="arrow">Δείτε εξετάσεις →</span>
+      </div>
+      <div class="service">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v4"/><path d="M12 18v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="m16.24 16.24 2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="m16.24 7.76 2.83-2.83"/></svg></div>
+        <h3>COVID-19 & Λοιμώξεις</h3>
+        <p>Μοριακό και rapid test, αντισώματα, έλεγχος αναπνευστικών λοιμώξεων.</p>
+        <span class="arrow">Δείτε εξετάσεις →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── ABOUT / HISTORY ─────────────────────── -->
+<section class="block about" id="about">
+  <div class="container grid">
+    <div>
+      <span class="eyebrow">Η ιστορία μας</span>
+      <h2 style="margin-top:14px">Μισός αιώνας στην υπηρεσία της υγείας σας.</h2>
+      <p style="color:var(--ink-2); margin-top:18px; font-size:1.05rem">
+        Από το 1977, το εργαστήριο Φαρμάκη αποτελεί σημείο αναφοράς στην Κοζάνη.
+        Το 2009 μετεξελίχθηκε σε <strong>«BiopathologyLabs» Φαρμάκης Μ. – Καζάκος Ε. Ιατρική ΙΚΕ</strong>,
+        συνδυάζοντας δεκαετίες εμπειρίας με τη σύγχρονη εργαστηριακή επιστήμη.
+      </p>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <span class="tl-year">1977</span>
+          <div class="tl-body">
+            <div class="t">Ίδρυση του εργαστηρίου Φαρμάκη</div>
+            <div class="d">Ο ιατρός Μιχαήλ Φαρμάκης ιδρύει το εργαστήριο στην Κοζάνη.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <span class="tl-year">2009</span>
+          <div class="tl-body">
+            <div class="t">Δημιουργία BiopathologyLabs</div>
+            <div class="d">Ο Δρ. Ευάγγελος Καζάκος ενώνει τις δυνάμεις του με τον κ. Φαρμάκη σε πρότυπο εργαστηριακό κέντρο.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <span class="tl-year">2016</span>
+          <div class="tl-body">
+            <div class="t">Πιστοποίηση ISO 9001:2015</div>
+            <div class="d">Επίσημη αναγνώριση της ποιότητας των υπηρεσιών μας.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <span class="tl-year">Σήμερα</span>
+          <div class="tl-body">
+            <div class="t">125 m² · 9 τμήματα · ΑμεΑ access</div>
+            <div class="d">Σύγχρονες εγκαταστάσεις στο κέντρο της Κοζάνης με πλήρη τεχνολογικό εξοπλισμό.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-visual">
+      <div style="position:absolute; inset:0; display:grid; place-items:center; color:var(--ink-3); font-size:.85rem">
+        [Φωτογραφία εξωτερικού / χώρου υποδοχής]
+      </div>
+      <div class="stat">
+        <div>
+          <div class="n">125 m²</div>
+          <div class="l">Ιδιόκτητες εγκαταστάσεις</div>
+        </div>
+        <div>
+          <div class="n">4 έτη</div>
+          <div class="l">Μέσος χρόνος εξοπλισμού</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── SLOGAN / PULL QUOTE ─────────────────────── -->
+<section style="padding:110px 0; background:var(--bg); border-top:1px solid var(--line); border-bottom:1px solid var(--line); position:relative; overflow:hidden">
+  <div style="position:absolute; top:30px; left:50%; transform:translateX(-50%); font-family:'Fraunces', serif; font-size:8rem; font-weight:300; color:var(--primary-soft); line-height:1; pointer-events:none; user-select:none">"</div>
+  <div class="container" style="text-align:center; position:relative">
+    <div style="font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-ink); font-weight:600; margin-bottom:24px">Η υπόσχεσή μας</div>
+    <h2 style="font-family:'Fraunces', serif; font-size:clamp(2rem, 4.5vw, 3.4rem); font-weight:400; letter-spacing:-.025em; line-height:1.2; max-width:880px; margin:0 auto; color:var(--ink)">
+      Μισός αιώνας <em style="font-style:italic; color:var(--primary)">ακρίβειας</em>.<br/>
+      Στην υπηρεσία της υγείας σας.
+    </h2>
+    <div style="margin-top:36px; display:inline-flex; align-items:center; gap:14px; font-size:.92rem; color:var(--ink-2)">
+      <span style="width:40px; height:1px; background:var(--line)"></span>
+      <span>Κοζάνη · από το 1977</span>
+      <span style="width:40px; height:1px; background:var(--line)"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── TEAM ─────────────────────── -->
+<section class="block team" id="team">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">Η ομάδα μας</span>
+      <h2 style="margin-top:14px">Εξειδικευμένοι επιστήμονες,<br/>δεσμευμένοι στην ακρίβεια.</h2>
+      <p class="sub">Επιστημονικό προσωπικό με ακαδημαϊκή εκπαίδευση και διεθνή εμπειρία, αφοσιωμένο στη σωστή διάγνωση και την άνετη εμπειρία σας.</p>
+    </div>
+
+    <div class="team-grid">
+      <div class="member">
+        <div class="photo">[Φωτογραφία ιατρού]</div>
+        <div class="info">
+          <h3>Δρ. Ευάγγελος Καζάκος</h3>
+          <div class="role">MD, PhD, MSc, DTM&H · Συνιδρυτής</div>
+          <p class="bio">Ιατρός Βιοπαθολόγος. Διδάκτωρ ιατρικής, Επίκουρος Καθηγητής Ιατρικής Βιοπαθολογίας.</p>
+        </div>
+      </div>
+      <div class="member">
+        <div class="photo">[Φωτογραφία ιατρού]</div>
+        <div class="info">
+          <h3>Μιχαήλ Φαρμάκης</h3>
+          <div class="role">MD · Ιδρυτής</div>
+          <p class="bio">Ιατρός Βιοπαθολόγος με 47+ χρόνια εργαστηριακής εμπειρίας στην Κοζάνη.</p>
+        </div>
+      </div>
+      <div class="member">
+        <div class="photo">[Μοριακή βιολόγος]</div>
+        <div class="info">
+          <h3>Μοριακή Βιολόγος</h3>
+          <div class="role">PhD · Τμήμα Μοριακής Διάγνωσης</div>
+          <p class="bio">Υπεύθυνη για PCR, γενετικό έλεγχο και εξειδικευμένες μοριακές εξετάσεις.</p>
+        </div>
+      </div>
+      <div class="member">
+        <div class="photo">[Επιστημονικό προσωπικό]</div>
+        <div class="info">
+          <h3>Επιστημονική Ομάδα</h3>
+          <div class="role">Τεχνολόγοι · Νοσηλευτές · Γραμματεία</div>
+          <p class="bio">2 Τεχνολόγοι Ιατρικών Εργαστηρίων, 2 Νοσηλευτές-Διασώστες, γραμματεία υποδοχής.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── HIGHLIGHT — HOME SERVICE ─────────────────────── -->
+<section class="block highlight" id="home-service">
+  <div class="container">
+    <div class="highlight-card">
+      <div style="position:relative; z-index:1">
+        <span class="eyebrow" style="background:rgba(20,184,166,.22); color:#7EEBDA">Υπηρεσία · Κατ' οίκον</span>
+        <h2 style="margin-top:18px">Η αιμοληψία έρχεται σε εσάς.</h2>
+        <p>
+          Για ηλικιωμένους, παιδιά, ασθενείς με κινητικές δυσκολίες ή απλά για την άνεσή σας —
+          η έμπειρη νοσηλευτική ομάδα μας έρχεται στο σπίτι ή το γραφείο σας με πλήρη εξοπλισμό.
+        </p>
+        <div class="cta-row">
+          <a href="tel:2461026775" class="btn btn-accent">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2Z"/></svg>
+            Καλέστε για ραντεβού
+          </a>
+        </div>
+      </div>
+      <div class="pill-list">
+        <div class="pill">
+          <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          Αιμοληψία κατ' οίκον σε όλη την Κοζάνη
+        </div>
+        <div class="pill">
+          <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          Ειδική φροντίδα για παιδιά & ηλικιωμένους
+        </div>
+        <div class="pill">
+          <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          Αποτελέσματα στο email σας ή στον γιατρό σας
+        </div>
+        <div class="pill">
+          <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          Πλήρως εξοπλισμένη νοσηλευτική ομάδα
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── EQUIPMENT ─────────────────────── -->
+<section class="block partners">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">Τεχνολογικός εξοπλισμός</span>
+      <h2 style="margin-top:14px">Αναλυτές αιχμής από κορυφαίους κατασκευαστές.</h2>
+    </div>
+    <div class="partners-grid">
+      <div class="brand-chip">Abbott</div>
+      <div class="brand-chip">Stago</div>
+      <div class="brand-chip">Thermo Scientific</div>
+      <div class="brand-chip">Zeiss</div>
+      <div class="brand-chip">Qiagen</div>
+      <div class="brand-chip">Cepheid</div>
+      <div class="brand-chip">Gentier</div>
+      <div class="brand-chip">Urit</div>
+      <div class="brand-chip">MTG GmbH</div>
+      <div class="brand-chip">+ άλλα</div>
+      <div class="brand-chip" style="background:var(--primary-soft); color:var(--primary); border-color:var(--primary-soft)">Μέσος όρος 4 ετών</div>
+      <div class="brand-chip" style="background:var(--accent-soft); color:var(--accent-ink); border-color:var(--accent-soft)">EQAS ελεγμένος</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── INSURANCE ─────────────────────── -->
+<section class="block insurance" id="insurance">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Ασφαλιστικές συνεργασίες</span>
+      <h2 style="margin-top:14px">Συνεργαζόμαστε με τα μεγαλύτερα ταμεία.</h2>
+      <p class="sub">Για τη δική σας ευκολία, καλύπτουμε εξετάσεις απευθείας μέσω των παρακάτω φορέων.</p>
+    </div>
+    <div class="insurance-grid">
+      <div class="ins-card">
+        <div class="ins-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2 4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6l-8-4Z"/></svg></div>
+        <div><div class="ins-name">ΕΟΠΥΥ</div><div class="ins-full">Εθνικός Οργανισμός Παροχής Υπηρεσιών Υγείας</div></div>
+      </div>
+      <div class="ins-card">
+        <div class="ins-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2 4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6l-8-4Z"/></svg></div>
+        <div><div class="ins-name">ΕΔΟΕΑΠ</div><div class="ins-full">Ενιαίος Δημοσιογραφικός Οργανισμός</div></div>
+      </div>
+      <div class="ins-card">
+        <div class="ins-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2 4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6l-8-4Z"/></svg></div>
+        <div><div class="ins-name">ΤΥΠΕΤ</div><div class="ins-full">Ταμείο Υγείας Προσωπικού Εθνικής Τράπεζας</div></div>
+      </div>
+      <div class="ins-card">
+        <div class="ins-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2 4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6l-8-4Z"/></svg></div>
+        <div><div class="ins-name">Τράπεζα Ελλάδος</div><div class="ins-full">Ταμείο Υγείας Προσωπικού</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── VISIT / CONTACT ─────────────────────── -->
+<section class="block visit" id="contact">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Επικοινωνία</span>
+      <h2 style="margin-top:14px">Ελάτε να σας γνωρίσουμε.</h2>
+      <p class="sub">Βρισκόμαστε στο κέντρο της Κοζάνης με εύκολη πρόσβαση και πλήρη προσβασιμότητα ΑμεΑ.</p>
+    </div>
+
+    <div class="grid">
+      <div>
+        <div class="info-block">
+          <div class="ib-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 10c0 7-8 12-8 12s-8-5-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div class="ib-body">
+            <div class="t">Διεύθυνση</div>
+            <div class="d">Ελ. Βενιζέλου 2, 2ος όροφος<br/>50100 Κοζάνη</div>
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="ib-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+          <div class="ib-body">
+            <div class="t">Ωράριο Λειτουργίας</div>
+            <div class="d">
+              Δευτέρα – Παρασκευή · 07:15 – 20:00<br/>
+              Σάββατο · κατόπιν συνεννόησης
+            </div>
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="ib-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2Z"/></svg></div>
+          <div class="ib-body">
+            <div class="t">Τηλέφωνο</div>
+            <div class="d"><a href="tel:2461026775">24610 26775</a></div>
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="ib-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div class="ib-body">
+            <div class="t">Email</div>
+            <div class="d"><a href="mailto:info@biopathologylabs.gr">info@biopathologylabs.gr</a></div>
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="ib-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M16 8V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v3"/><path d="M5 21a7 7 0 1 1 14 0"/></svg></div>
+          <div class="ib-body">
+            <div class="t">Προσβασιμότητα</div>
+            <div class="d">Πλήρης πρόσβαση ΑμεΑ · Ασανσέρ · Χώρος αναμονής φιλικός σε παιδιά</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="map-placeholder">
+          <span>[Google Maps embed · Ελ. Βενιζέλου 2, Κοζάνη]</span>
+          <div class="map-pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="10" r="3"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── CTA BAND ─────────────────────── -->
+<section class="cta-band">
+  <div class="container row">
+    <div>
+      <h2>Έτοιμοι να κλείσετε ραντεβού;</h2>
+      <p>Καλέστε μας ή στείλτε email. Η γραμματεία μας απαντά Δευτέρα – Παρασκευή, 07:15 – 20:00.</p>
+    </div>
+    <div style="display:flex; gap:12px; flex-wrap:wrap">
+      <a href="tel:2461026775" class="btn btn-accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2Z"/></svg>
+        24610 26775
+      </a>
+      <a href="mailto:info@biopathologylabs.gr" class="btn btn-ghost" style="color:#fff; border-color:rgba(255,255,255,.3)">
+        Στείλτε email
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── FOOTER ─────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div class="foot-brand">
+          <div class="brand-mark">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 2v7.31"/><path d="M14 9.3V2"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/>
+            </svg>
+          </div>
+          <div>
+            <div class="name">BiopathologyLabs</div>
+            <div class="sub">Φαρμάκης Μ. · Καζάκος Ε. Ιατρική ΙΚΕ</div>
+          </div>
+        </div>
+        <p class="foot-desc">Πρότυπο βιοπαθολογικό κέντρο στην Κοζάνη από το 1977. Πιστοποιημένη ποιότητα, ανθρώπινη προσέγγιση.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Εξετάσεις</h4>
+        <ul>
+          <li><a href="#services">Μικροβιολογικό</a></li>
+          <li><a href="#services">Βιοχημικό</a></li>
+          <li><a href="#services">Ορμονολογικό</a></li>
+          <li><a href="#services">Μοριακή διάγνωση</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Εταιρεία</h4>
+        <ul>
+          <li><a href="#about">Το εργαστήριο</a></li>
+          <li><a href="#team">Η ομάδα μας</a></li>
+          <li><a href="#insurance">Ασφαλιστικά</a></li>
+          <li><a href="#home-service">Κατ' οίκον</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Επικοινωνία</h4>
+        <ul>
+          <li>Ελ. Βενιζέλου 2, Κοζάνη</li>
+          <li><a href="tel:2461026775">24610 26775</a></li>
+          <li><a href="mailto:info@biopathologylabs.gr">info@biopathologylabs.gr</a></li>
+          <li><a href="https://www.facebook.com/biopathologylabs/">Facebook →</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 BiopathologyLabs — Φαρμάκης Μ. · Καζάκος Ε. Ιατρική ΙΚΕ</div>
+      <div style="display:flex; gap:20px">
+        <a href="#">Πολιτική Απορρήτου</a>
+        <a href="#">Όροι Χρήσης</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Preview disclaimer -->
+<a href="index.html" style="position:fixed; bottom:18px; right:18px; background:rgba(11,31,42,.92); color:#fff; padding:9px 16px; border-radius:999px; font-family:'Inter',system-ui,sans-serif; font-size:.72rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; backdrop-filter:blur(8px); z-index:9999; box-shadow:0 8px 24px rgba(0,0,0,.18); text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:transform .2s">
+  <span style="width:7px; height:7px; border-radius:50%; background:#14B8A6; display:inline-block"></span>
+  Mockup Preview · v1
+  <span style="opacity:.5; margin-left:4px">↩</span>
+</a>
+
+</body>
+</html>

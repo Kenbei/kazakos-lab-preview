@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>BiopathologyLabs — Preview Mockup (v2)</title>
+<meta name="description" content="Βιοπαθολογικό εργαστήριο στην Κοζάνη από το 1977. Πιστοποιημένες εξετάσεις, ανθρώπινη φροντίδα." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#FCFBF8;
+    --ink:#0E0E0C;
+    --ink-2:#595753;
+    --ink-3:#9B9892;
+    --line:#E8E5DE;
+    --accent:#6B8E7F;
+    --accent-deep:#4F7366;
+    --accent-soft:#EEF2EF;
+    --container:1080px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0; padding:0}
+  body{
+    font-family:'Inter', system-ui, -apple-system, sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    font-size:16px;
+  }
+  h1, h2, h3, .display{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:300;
+    letter-spacing:-.02em;
+    color:var(--ink);
+    margin:0;
+    font-variation-settings:"opsz" 144;
+  }
+  p{margin:0}
+  a{color:inherit; text-decoration:none}
+  a.link{border-bottom:1px solid var(--line); transition:border-color .2s}
+  a.link:hover{border-color:var(--ink)}
+  .container{max-width:var(--container); margin:0 auto; padding:0 32px}
+
+  /* ─── Navigation ─── */
+  nav{
+    padding:28px 0;
+    border-bottom:1px solid var(--line);
+  }
+  nav .row{display:flex; justify-content:space-between; align-items:center}
+  .logo{
+    font-family:'Fraunces', serif;
+    font-weight:400;
+    font-size:1.15rem;
+    letter-spacing:-.01em;
+    display:flex; align-items:baseline; gap:10px;
+  }
+  .logo .dot{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--accent);
+    display:inline-block;
+  }
+  .logo .sub{font-family:'Inter',sans-serif; font-size:.78rem; color:var(--ink-3); letter-spacing:.04em; font-weight:500}
+  nav .meta{
+    display:flex; gap:24px; align-items:center;
+    font-size:.88rem; color:var(--ink-2);
+  }
+  nav .meta a{display:inline-flex; align-items:center; gap:8px}
+  nav .meta .phone{color:var(--ink); font-weight:500}
+  @media (max-width:640px){
+    nav .meta .addr{display:none}
+  }
+
+  /* ─── Hero ─── */
+  .hero{
+    padding:120px 0 140px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero .eyebrow{
+    font-size:.78rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--accent-deep); font-weight:600;
+    margin-bottom:40px;
+    display:flex; align-items:center; gap:14px;
+  }
+  .hero .eyebrow::after{
+    content:""; flex:1; max-width:120px; height:1px; background:var(--accent);
+  }
+  .hero h1{
+    font-size:clamp(2.8rem, 7vw, 5.8rem);
+    line-height:1.02;
+    max-width:920px;
+    letter-spacing:-.035em;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--accent-deep);
+    font-weight:300;
+  }
+  .hero .lead{
+    margin-top:44px;
+    font-size:1.18rem;
+    color:var(--ink-2);
+    max-width:560px;
+    line-height:1.55;
+  }
+  .hero .cta{
+    margin-top:52px;
+    display:flex; align-items:center; gap:28px;
+    flex-wrap:wrap;
+  }
+  .btn-primary{
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--ink); color:var(--bg);
+    padding:16px 28px; border-radius:999px;
+    font-weight:500; font-size:.98rem;
+    transition:all .2s ease;
+  }
+  .btn-primary:hover{background:var(--accent-deep); gap:14px}
+  .btn-primary .arrow{transition:transform .2s}
+  .btn-primary:hover .arrow{transform:translateX(3px)}
+  .btn-text{
+    display:inline-flex; align-items:center; gap:10px;
+    font-weight:500; font-size:.98rem;
+    padding:16px 4px;
+    border-bottom:1px solid var(--ink);
+    transition:color .2s;
+  }
+  .btn-text:hover{color:var(--accent-deep); border-color:var(--accent-deep)}
+
+  /* ─── Meta strip ─── */
+  .meta-strip{
+    padding:32px 0;
+    border-bottom:1px solid var(--line);
+    background:var(--bg);
+  }
+  .meta-strip .row{
+    display:flex; justify-content:space-between; flex-wrap:wrap;
+    gap:24px; font-size:.86rem; color:var(--ink-2);
+  }
+  .meta-strip .item{display:flex; align-items:center; gap:10px}
+  .meta-strip .item .lbl{
+    font-size:.72rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--ink-3); font-weight:600;
+  }
+  .meta-strip .item .val{color:var(--ink); font-weight:500}
+
+  /* ─── Section base ─── */
+  section.block{padding:120px 0}
+  .section-label{
+    font-size:.78rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--ink-3); font-weight:600;
+    margin-bottom:32px;
+  }
+  .section-title{
+    font-size:clamp(2rem, 4.2vw, 3rem);
+    line-height:1.1;
+    letter-spacing:-.025em;
+    max-width:720px;
+  }
+
+  /* ─── Services (text list) ─── */
+  .services{border-bottom:1px solid var(--line)}
+  .services .row{
+    display:grid;
+    grid-template-columns:minmax(220px, 1fr) 2fr;
+    gap:80px;
+  }
+  @media (max-width:860px){
+    .services .row{grid-template-columns:1fr; gap:32px}
+  }
+  .svc-list{
+    display:flex; flex-direction:column;
+    border-top:1px solid var(--line);
+  }
+  .svc-item{
+    display:flex; justify-content:space-between; align-items:baseline;
+    gap:40px;
+    padding:24px 0;
+    border-bottom:1px solid var(--line);
+    transition:padding .2s ease;
+  }
+  .svc-item:hover{padding-left:12px}
+  .svc-name{
+    font-family:'Fraunces', serif;
+    font-weight:400;
+    font-size:1.6rem;
+    letter-spacing:-.02em;
+  }
+  .svc-desc{
+    color:var(--ink-2);
+    font-size:.94rem;
+    text-align:right;
+    max-width:360px;
+  }
+  @media (max-width:640px){
+    .svc-item{flex-direction:column; align-items:flex-start; gap:6px}
+    .svc-desc{text-align:left}
+  }
+
+  /* ─── Home service band ─── */
+  .home-service{
+    background:var(--accent-soft);
+    border-bottom:1px solid var(--line);
+  }
+  .home-service .row{
+    display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
+  }
+  @media (max-width:860px){
+    .home-service .row{grid-template-columns:1fr; gap:32px}
+  }
+  .home-service h2{
+    font-size:clamp(2rem, 4.2vw, 3rem);
+    line-height:1.1;
+    letter-spacing:-.025em;
+  }
+  .home-service h2 em{font-style:italic; color:var(--accent-deep)}
+  .home-service p{
+    color:var(--ink-2); font-size:1.05rem; max-width:440px;
+  }
+  .home-service .cta{margin-top:32px}
+
+  /* ─── Story ─── */
+  .story{border-bottom:1px solid var(--line)}
+  .story .row{
+    display:grid; grid-template-columns:minmax(220px, 1fr) 2fr;
+    gap:80px;
+  }
+  @media (max-width:860px){ .story .row{grid-template-columns:1fr; gap:32px} }
+  .story .big-text{
+    font-family:'Fraunces', serif;
+    font-weight:300;
+    font-size:clamp(1.4rem, 2.4vw, 1.9rem);
+    line-height:1.4;
+    letter-spacing:-.015em;
+    color:var(--ink);
+    max-width:720px;
+  }
+  .story .big-text em{
+    font-style:italic;
+    color:var(--accent-deep);
+  }
+  .story .sig{
+    margin-top:40px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    display:flex; gap:40px;
+    font-size:.9rem; color:var(--ink-2);
+    flex-wrap:wrap;
+  }
+  .story .sig strong{color:var(--ink); display:block; font-weight:500}
+
+  /* ─── Contact / Footer ─── */
+  footer{
+    padding:80px 0 40px;
+    background:var(--ink);
+    color:#D4D2CB;
+  }
+  footer .head{
+    display:grid; grid-template-columns:1fr 1fr; gap:80px;
+    padding-bottom:60px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  @media (max-width:860px){ footer .head{grid-template-columns:1fr; gap:40px} }
+  footer h2{
+    color:#fff;
+    font-size:clamp(2rem, 4.2vw, 3.2rem);
+    line-height:1.05;
+    letter-spacing:-.025em;
+  }
+  footer h2 em{color:var(--accent); font-style:italic; font-weight:300}
+  footer .info{
+    display:flex; flex-direction:column; gap:24px;
+    font-size:.94rem;
+  }
+  footer .info .block{display:flex; flex-direction:column; gap:4px}
+  footer .info .lbl{
+    font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+    color:#7A786F; font-weight:600;
+  }
+  footer .info .val{color:#fff; font-weight:400; font-size:1.05rem}
+  footer .info a{color:#fff}
+  footer .info a:hover{color:var(--accent)}
+  footer .big-cta{
+    margin-top:32px;
+    display:inline-flex; align-items:center; gap:12px;
+    background:var(--accent); color:var(--ink);
+    padding:16px 28px; border-radius:999px;
+    font-weight:600; font-size:.98rem;
+    transition:background .2s;
+  }
+  footer .big-cta:hover{background:#8AAB9D}
+  footer .bottom{
+    padding-top:32px;
+    display:flex; justify-content:space-between; flex-wrap:wrap;
+    gap:16px; font-size:.8rem; color:#7A786F;
+  }
+  footer .bottom a{color:#7A786F}
+  footer .bottom a:hover{color:#C9C7C0}
+</style>
+</head>
+<body>
+
+<!-- ─── Nav ─── -->
+<nav>
+  <div class="container row">
+    <div class="logo">
+      <span class="dot"></span>
+      BiopathologyLabs
+      <span class="sub">· Κοζάνη</span>
+    </div>
+    <div class="meta">
+      <span class="addr">Ελ. Βενιζέλου 2</span>
+      <a href="tel:2461026775" class="phone">24610 26775</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── Hero ─── -->
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">Βιοπαθολογικό Εργαστήριο · από το 1977</div>
+    <h1>
+      Εργαστηριακή<br/>
+      διάγνωση με <em>ακρίβεια</em><br/>
+      και φροντίδα.
+    </h1>
+    <p class="lead">
+      Βιοπαθολογικό εργαστήριο στην καρδιά της Κοζάνης.
+      Πιστοποιημένες εξετάσεις, σύγχρονος εξοπλισμός, ανθρώπινη προσέγγιση.
+    </p>
+    <div class="cta">
+      <a href="#contact" class="btn-primary">
+        Κλείστε ραντεβού
+        <span class="arrow">→</span>
+      </a>
+      <a href="tel:2461026775" class="btn-text">24610 26775</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Meta strip ─── -->
+<div class="meta-strip">
+  <div class="container row">
+    <div class="item">
+      <span class="lbl">Ωράριο</span>
+      <span class="val">Δευτ – Παρ · 07:15 – 20:00</span>
+    </div>
+    <div class="item">
+      <span class="lbl">Πιστοποίηση</span>
+      <span class="val">ISO 9001:2015 · SWISS Approval</span>
+    </div>
+    <div class="item">
+      <span class="lbl">Ταμεία</span>
+      <span class="val">ΕΟΠΥΥ · ΕΔΟΕΑΠ · ΤΥΠΕΤ</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Services (text list) ─── -->
+<section class="block services">
+  <div class="container row">
+    <div>
+      <div class="section-label">01 — Τι κάνουμε</div>
+      <h2 class="section-title">Όλο το φάσμα των εργαστηριακών εξετάσεων, σε έναν χώρο.</h2>
+    </div>
+    <div class="svc-list">
+      <div class="svc-item">
+        <span class="svc-name">Μικροβιολογικό</span>
+        <span class="svc-desc">Καλλιέργειες, αντιβιογράμματα, παθογόνα.</span>
+      </div>
+      <div class="svc-item">
+        <span class="svc-name">Βιοχημικό</span>
+        <span class="svc-desc">Πλήρης έλεγχος αίματος, ηπατικά, νεφρικά.</span>
+      </div>
+      <div class="svc-item">
+        <span class="svc-name">Ανοσολογικό</span>
+        <span class="svc-desc">Αυτοάνοσα, αντισώματα, ρευματολογικά.</span>
+      </div>
+      <div class="svc-item">
+        <span class="svc-name">Ορμονολογικό</span>
+        <span class="svc-desc">Θυρεοειδής, αναπαραγωγικές, στεροειδείς.</span>
+      </div>
+      <div class="svc-item">
+        <span class="svc-name">Μοριακή διάγνωση</span>
+        <span class="svc-desc">PCR, γενετικά tests, φαρμακογενετική.</span>
+      </div>
+      <div class="svc-item">
+        <span class="svc-name">COVID-19 &amp; λοιμώξεις</span>
+        <span class="svc-desc">Μοριακά tests, αντισώματα, rapid.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Home service ─── -->
+<section class="block home-service">
+  <div class="container row">
+    <div>
+      <div class="section-label">02 — Κατ' οίκον</div>
+      <h2>Η αιμοληψία <em>έρχεται</em> σε εσάς.</h2>
+    </div>
+    <div>
+      <p>
+        Για ηλικιωμένους, παιδιά, ασθενείς με κινητικές δυσκολίες
+        ή απλά για την άνεση σας — η νοσηλευτική μας ομάδα έρχεται
+        στο σπίτι σας με πλήρη εξοπλισμό.
+      </p>
+      <div class="cta">
+        <a href="tel:2461026775" class="btn-primary">
+          Καλέστε μας
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Story ─── -->
+<section class="block story">
+  <div class="container row">
+    <div>
+      <div class="section-label">03 — Η ιστορία μας</div>
+    </div>
+    <div>
+      <p class="big-text">
+        Από το <em>1977</em> το εργαστήριο Φαρμάκη λειτουργεί στην Κοζάνη.
+        Το 2009, με την είσοδο του <em>Δρ. Ευάγγελου Καζάκου</em>, μετεξελίχθηκε
+        σε πρότυπο κέντρο βιοπαθολογίας. Μισός αιώνας εμπειρίας,
+        σε σύγχρονες εγκαταστάσεις 125m² με πλήρη προσβασιμότητα ΑμεΑ.
+      </p>
+      <div class="sig">
+        <div><strong>Μιχαήλ Φαρμάκης</strong>MD · Ιδρυτής</div>
+        <div><strong>Δρ. Ευάγγελος Καζάκος</strong>MD, PhD, MSc, DTM&amp;H</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Footer / Contact ─── -->
+<footer id="contact">
+  <div class="container">
+    <div class="head">
+      <div>
+        <h2>Ελάτε να σας<br/><em>γνωρίσουμε</em>.</h2>
+        <a href="tel:2461026775" class="big-cta">
+          24610 26775
+          <span>→</span>
+        </a>
+      </div>
+      <div class="info">
+        <div class="block">
+          <span class="lbl">Διεύθυνση</span>
+          <span class="val">Ελ. Βενιζέλου 2, 2ος όροφος<br/>50100 Κοζάνη</span>
+        </div>
+        <div class="block">
+          <span class="lbl">Ωράριο</span>
+          <span class="val">Δευτέρα – Παρασκευή · 07:15 – 20:00<br/>Σάββατο κατόπιν συνεννόησης</span>
+        </div>
+        <div class="block">
+          <span class="lbl">Email</span>
+          <span class="val"><a href="mailto:info@biopathologylabs.gr">info@biopathologylabs.gr</a></span>
+        </div>
+      </div>
+    </div>
+    <div class="bottom">
+      <div>© 2026 BiopathologyLabs — Φαρμάκης Μ. · Καζάκος Ε. Ιατρική ΙΚΕ</div>
+      <div>
+        <a href="#">Απόρρητο</a> &nbsp;·&nbsp;
+        <a href="https://www.facebook.com/biopathologylabs/">Facebook</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Preview disclaimer -->
+<a href="index.html" style="position:fixed; bottom:18px; right:18px; background:rgba(14,14,12,.92); color:#FCFBF8; padding:9px 16px; border-radius:999px; font-family:'Inter',system-ui,sans-serif; font-size:.72rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; backdrop-filter:blur(8px); z-index:9999; box-shadow:0 8px 24px rgba(0,0,0,.18); text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:transform .2s">
+  <span style="width:7px; height:7px; border-radius:50%; background:#6B8E7F; display:inline-block"></span>
+  Mockup Preview · v2
+  <span style="opacity:.5; margin-left:4px">↩</span>
+</a>
+
+</body>
+</html>
