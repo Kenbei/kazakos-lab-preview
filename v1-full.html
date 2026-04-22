@@ -107,10 +107,88 @@
   .nav-links a{padding:8px 14px; border-radius:8px; font-size:.92rem; font-weight:500; color:var(--ink-2); transition:background .15s; white-space:nowrap}
   .nav-links a:hover{background:var(--surface-2); color:var(--ink)}
   .nav-cta{display:flex; gap:10px; align-items:center}
-  .mobile-toggle{display:none; background:none; border:0; padding:8px; cursor:pointer}
+
+  /* Mobile hamburger toggle */
+  .mobile-toggle{
+    display:none; background:none; border:0; padding:10px;
+    cursor:pointer; color:var(--ink); border-radius:10px;
+    transition:background .15s; align-items:center; justify-content:center;
+  }
+  .mobile-toggle:hover{background:var(--surface-2)}
+  .mobile-toggle svg{width:24px; height:24px; display:block}
+
+  /* Mobile drawer */
+  .drawer{
+    position:fixed; top:0; right:0; bottom:0;
+    width:min(340px, 88vw);
+    background:var(--surface);
+    box-shadow:-20px 0 60px -20px rgba(11,31,42,.25);
+    transform:translateX(100%);
+    transition:transform .3s cubic-bezier(.4,0,.2,1);
+    z-index:200;
+    display:flex; flex-direction:column;
+    padding:24px 20px;
+    overflow-y:auto;
+  }
+  .drawer.open{transform:translateX(0)}
+  .drawer .drawer-head{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:28px;
+  }
+  .drawer .close{
+    background:none; border:0; padding:8px; cursor:pointer;
+    color:var(--ink); border-radius:10px; display:grid; place-items:center;
+  }
+  .drawer .close:hover{background:var(--surface-2)}
+  .drawer .close svg{width:22px; height:22px}
+  .drawer-links{display:flex; flex-direction:column; gap:2px; flex:1}
+  .drawer-links a{
+    padding:14px 16px; border-radius:10px;
+    font-size:1.02rem; font-weight:500; color:var(--ink);
+    transition:all .15s; display:flex; align-items:center; justify-content:space-between;
+  }
+  .drawer-links a:hover{background:var(--primary-soft); color:var(--primary)}
+  .drawer-links a::after{content:"→"; opacity:0; transition:opacity .15s; color:var(--primary)}
+  .drawer-links a:hover::after{opacity:1}
+  .drawer-footer{
+    padding-top:24px; margin-top:20px;
+    border-top:1px solid var(--line);
+    display:flex; flex-direction:column; gap:12px;
+  }
+  .drawer-footer .btn{width:100%; justify-content:center}
+  .drawer-footer .phone-link{
+    display:flex; align-items:center; gap:10px;
+    padding:14px 16px;
+    color:var(--ink); font-weight:500;
+    border:1px solid var(--line); border-radius:10px;
+    transition:all .15s;
+  }
+  .drawer-footer .phone-link:hover{border-color:var(--primary); color:var(--primary)}
+
+  .backdrop{
+    position:fixed; inset:0;
+    background:rgba(11,31,42,.5);
+    backdrop-filter:blur(4px);
+    opacity:0; pointer-events:none;
+    transition:opacity .3s;
+    z-index:150;
+  }
+  .backdrop.open{opacity:1; pointer-events:auto}
+  body.drawer-open{overflow:hidden}
+
   @media (max-width: 900px){
     .nav-links{display:none}
     .nav-cta .btn-ghost{display:none}
+    .mobile-toggle{display:inline-flex}
+    .nav .row{height:68px}
+    .nav-cta{gap:6px}
+    .nav-cta .btn-primary{padding:11px 16px; font-size:.88rem}
+  }
+  @media (max-width: 520px){
+    .nav-cta .btn-primary{display:none}
+    .brand-text .sub{display:none}
+    .brand-mark{width:38px; height:38px}
+    .brand-text .name{font-size:1.05rem}
   }
 
   /* ── Hero ────────────────────────────────────────────── */
@@ -419,6 +497,106 @@
   .foot-brand .sub{font-size:.72rem; color:#6E8088; letter-spacing:.04em; margin-top:2px}
   .foot-desc{max-width:320px; color:#7B8F96; font-size:.88rem; margin-top:6px}
   .foot-bottom{padding-top:24px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; font-size:.82rem; color:#6E8088}
+
+  /* ═══ Mobile responsive refinements ═══ */
+  @media (max-width: 640px){
+    /* Topbar */
+    .topbar{font-size:.74rem; padding:10px 0}
+    .topbar .row{gap:8px}
+    .topbar .row > div:first-child{gap:10px; flex-wrap:wrap}
+    .topbar a[href^="mailto"]{display:none}
+
+    /* Hero */
+    .hero{padding:56px 0 72px}
+    .hero .grid{gap:32px}
+    .hero h1{font-size:2.3rem !important}
+    .hero .lead{font-size:1rem; margin-top:18px}
+    .hero .cta-row{margin-top:26px; gap:10px}
+    .hero .cta-row .btn{flex:1; justify-content:center; padding:12px 18px; font-size:.9rem}
+    .hero .trust{gap:18px; margin-top:30px; padding-top:22px}
+    .hero .trust-item{flex:1; min-width:0}
+    .hero .trust-item .num{font-size:1.5rem}
+    .hero .trust-item .lbl{font-size:.74rem}
+    .hero-visual{aspect-ratio:4/3}
+
+    /* Sections spacing */
+    section.block{padding:60px 0}
+    .section-head{margin-bottom:36px}
+    .section-head h2{font-size:1.7rem !important}
+
+    /* Trust strip */
+    .trust-strip{padding:22px 0}
+    .trust-strip .row{gap:14px; justify-content:flex-start}
+    .badge-row{gap:12px 18px}
+    .cert-badge{font-size:.82rem}
+    .cert-badge .cert-icon{width:28px; height:28px}
+
+    /* Services */
+    .service{padding:20px 22px}
+    .service h3{font-size:1rem}
+
+    /* About */
+    .about-visual{aspect-ratio:3/2}
+    .about-visual .stat{grid-template-columns:1fr; gap:12px; padding:16px 18px}
+    .about-visual .stat > div .n{font-size:1.4rem}
+    .tl-year{min-width:52px; font-size:1rem}
+    .tl-body{padding-left:16px; padding-bottom:4px}
+
+    /* Team */
+    .member .info{padding:16px}
+    .member .info h3{font-size:.95rem}
+    .member .info .bio{font-size:.78rem}
+
+    /* Slogan section padding override */
+    section[style*="padding:110px 0"]{padding:60px 0 !important}
+
+    /* Highlight (κατ' οίκον) */
+    .highlight-card{padding:36px 22px; gap:28px}
+    .highlight-card h2{font-size:1.7rem}
+    .highlight-card p{font-size:.95rem}
+    .highlight-card .pill{font-size:.88rem; padding:12px 16px}
+
+    /* Partners */
+    .brand-chip{height:60px; font-size:.82rem}
+
+    /* Insurance */
+    .ins-card{padding:16px 18px; gap:12px}
+    .ins-icon{width:36px; height:36px}
+    .ins-full{font-size:.72rem; line-height:1.4}
+
+    /* Visit */
+    .info-block{padding:18px 0; gap:12px}
+    .info-block .ib-icon{width:40px; height:40px}
+    .info-block .ib-body .d{font-size:.88rem}
+    .map-placeholder{aspect-ratio:1}
+
+    /* CTA band */
+    .cta-band{padding:52px 0}
+    .cta-band .row{gap:22px; flex-direction:column; align-items:flex-start}
+    .cta-band h2{font-size:1.7rem}
+    .cta-band > .container > .row > div:last-child{width:100%; display:flex; gap:10px}
+    .cta-band > .container > .row > div:last-child .btn{flex:1; justify-content:center; padding:12px 18px}
+
+    /* Footer */
+    footer{padding:44px 0 24px}
+
+    /* Preview pill — smaller on mobile to not cover content */
+    a[href="index.html"][style*="position:fixed"]{
+      bottom:10px !important; right:10px !important;
+      padding:6px 12px !important; font-size:.64rem !important;
+      letter-spacing:.08em !important;
+    }
+  }
+
+  @media (max-width: 400px){
+    .hero h1{font-size:2rem !important}
+    .hero .cta-row{flex-direction:column; align-items:stretch}
+    .hero .trust{gap:12px}
+    .hero .trust-item .num{font-size:1.3rem}
+    .highlight-card{padding:30px 20px}
+    .container{padding:0 18px}
+    .btn{padding:12px 18px; font-size:.9rem}
+  }
 </style>
 </head>
 <body>
@@ -474,6 +652,9 @@
         Κλείστε ραντεβού
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
+      <button class="mobile-toggle" onclick="openDrawer()" aria-label="Άνοιγμα μενού">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
     </div>
   </div>
 </nav>
@@ -969,6 +1150,59 @@
     </div>
   </div>
 </footer>
+
+<!-- ─── Mobile drawer ─── -->
+<div class="backdrop" id="backdrop" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-label="Μενού πλοήγησης">
+  <div class="drawer-head">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 2v7.31"/><path d="M14 9.3V2"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="name">BiopathologyLabs</span>
+      </div>
+    </div>
+    <button class="close" onclick="closeDrawer()" aria-label="Κλείσιμο">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="drawer-links">
+    <a href="#services" onclick="closeDrawer()">Εξετάσεις</a>
+    <a href="#about" onclick="closeDrawer()">Εργαστήριο</a>
+    <a href="#team" onclick="closeDrawer()">Ομάδα</a>
+    <a href="#home-service" onclick="closeDrawer()">Αιμοληψία</a>
+    <a href="#insurance" onclick="closeDrawer()">Ασφαλιστικά</a>
+    <a href="#contact" onclick="closeDrawer()">Επικοινωνία</a>
+    <a href="results.html">Αποτελέσματα</a>
+  </nav>
+  <div class="drawer-footer">
+    <a href="tel:2461026775" class="phone-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2Z"/></svg>
+      24610 26775
+    </a>
+    <a href="#contact" onclick="closeDrawer()" class="btn btn-primary">
+      Κλείστε ραντεβού
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+  </div>
+</aside>
+
+<script>
+  function openDrawer(){
+    document.getElementById('drawer').classList.add('open');
+    document.getElementById('backdrop').classList.add('open');
+    document.body.classList.add('drawer-open');
+  }
+  function closeDrawer(){
+    document.getElementById('drawer').classList.remove('open');
+    document.getElementById('backdrop').classList.remove('open');
+    document.body.classList.remove('drawer-open');
+  }
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeDrawer(); });
+</script>
 
 <!-- Preview disclaimer -->
 <a href="index.html" style="position:fixed; bottom:18px; right:18px; background:rgba(11,31,42,.92); color:#fff; padding:9px 16px; border-radius:999px; font-family:'Inter',system-ui,sans-serif; font-size:.72rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; backdrop-filter:blur(8px); z-index:9999; box-shadow:0 8px 24px rgba(0,0,0,.18); text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:transform .2s">
